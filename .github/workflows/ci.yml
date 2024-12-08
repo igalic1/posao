@@ -24,6 +24,10 @@ jobs:
       with:
         node-version: 16
 
+    - name: Lint frontend code
+      working-directory: frontend
+      run: npm run lint
+
     - name: Install frontend dependencies
       working-directory: frontend
       run: npm install
@@ -41,6 +45,10 @@ jobs:
       with:
         python-version: 3.9
 
+    - name: Lint backend code
+      working-directory: backend
+      run: pylint **/*.py
+
     - name: Install backend dependencies
       working-directory: backend
       run: |
@@ -55,6 +63,11 @@ jobs:
       working-directory: backend
       run: python setup.py sdist
 
+    - name: Run end-to-end tests
+      run: |
+        echo "Running end-to-end tests"
+        # Add your E2E test script here (e.g., Playwright, Cypress, etc.)
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -62,4 +75,3 @@ jobs:
         path: |
           frontend/build
           backend/dist
- 
